@@ -81,17 +81,17 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
 
         public class PlayerDynamicUnknown : UpdateFieldStructure
         {
-            public UpdateField PLAYER_FIELD_2891 = new UpdateField(UpdateFieldType.Int, 0, 0);
-            public UpdateField PLAYER_FIELD_2892 = new UpdateField(UpdateFieldType.Int, 0, 0);
-            public UpdateField PLAYER_FIELD_2893 = new UpdateField(UpdateFieldType.Uint, 0, 0);
-            public UpdateField PLAYER_FIELD_2894 = new UpdateField(UpdateFieldType.Uint, 0, 0);
-            public UpdateField PLAYER_FIELD_2895 = new UpdateField(UpdateFieldType.Uint, 0, 0);
-            public UpdateField PLAYER_FIELD_2896 = new UpdateField(UpdateFieldType.Uint, 0, 0);
-            public UpdateField PLAYER_FIELD_2897 = new UpdateField(UpdateFieldType.Byte, 0, 0);
+            public UpdateField PLAYER_FIELD_DYNAMIC_1 = new UpdateField(UpdateFieldType.Int, 0, 0);
+            public UpdateField PLAYER_FIELD_DYNAMIC_2 = new UpdateField(UpdateFieldType.Int, 0, 0);
+            public UpdateField PLAYER_FIELD_DYNAMIC_3 = new UpdateField(UpdateFieldType.Uint, 0, 0);
+            public UpdateField PLAYER_FIELD_DYNAMIC_4 = new UpdateField(UpdateFieldType.Uint, 0, 0);
+            public UpdateField PLAYER_FIELD_DYNAMIC_5 = new UpdateField(UpdateFieldType.Uint, 0, 0);
+            public UpdateField PLAYER_FIELD_DYNAMIC_6 = new UpdateField(UpdateFieldType.Uint, 0, 0);
+            public UpdateField PLAYER_FIELD_DYNAMIC_7 = new UpdateField(UpdateFieldType.Byte, 0, 0);
 
             public PlayerDynamicUnknown(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFDynamicField]
-        public PlayerDynamicUnknown PLAYER_FIELD_2891_2897 = new PlayerDynamicUnknown(0x0, 0);
+        public PlayerDynamicUnknown PLAYER_FIELD_DYNAMIC_UNKNOWN_1 = new PlayerDynamicUnknown(0x0, 0);
     }
 }
