@@ -335,6 +335,7 @@
     <Compile Include="UpdateFields\CGGameObject_C.cs" />
     <Compile Include="UpdateFields\CGItem_C.cs" />
     <Compile Include="UpdateFields\CGObject_C.cs" />
+    <Compile Include="UpdateFields\CGPlayer_C.cs" />
     <Compile Include="UpdateFields\CGSceneObject_C.cs" />
     <Compile Include="UpdateFields\CGUnit_C.cs" />
     <Compile Include="UpdateFields\UpdateField.cs" />
