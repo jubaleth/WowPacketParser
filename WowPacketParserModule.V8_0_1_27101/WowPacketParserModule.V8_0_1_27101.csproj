@@ -333,6 +333,7 @@
     <Compile Include="UpdateFields\CGContainer_C.cs" />
     <Compile Include="UpdateFields\CGConversation_C.cs" />
     <Compile Include="UpdateFields\CGCorpse_C.cs" />
+    <Compile Include="UpdateFields\CGDynamicObject.cs" />
     <Compile Include="UpdateFields\CGGameObject_C.cs" />
     <Compile Include="UpdateFields\CGItem_C.cs" />
     <Compile Include="UpdateFields\CGObject_C.cs" />
