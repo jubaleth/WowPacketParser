@@ -327,6 +327,17 @@
     <Compile Include="Parsers\VoiceChatHandler.cs" />
     <Compile Include="Parsers\UpdateHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdateFields\CGAreaTrigger_C.cs" />
+    <Compile Include="UpdateFields\CGAzeriteEmpoweredItem_C.cs" />
+    <Compile Include="UpdateFields\CGAzeriteItem_C.cs" />
+    <Compile Include="UpdateFields\CGContainer_C.cs" />
+    <Compile Include="UpdateFields\CGCorpse_C.cs" />
+    <Compile Include="UpdateFields\CGGameObject_C.cs" />
+    <Compile Include="UpdateFields\CGItem_C.cs" />
+    <Compile Include="UpdateFields\CGObject_C.cs" />
+    <Compile Include="UpdateFields\CGSceneObject_C.cs" />
+    <Compile Include="UpdateFields\CGUnit_C.cs" />
+    <Compile Include="UpdateFields\UpdateField.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WowPacketParserModule.Substructures\WowPacketParserModule.Substructures.csproj">

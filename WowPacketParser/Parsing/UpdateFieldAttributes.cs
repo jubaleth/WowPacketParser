@@ -24,6 +24,7 @@ namespace WowPacketParser.Parsing
         Guid, // Must be 64-bit or 128-bit
         Quaternion, // 4x float
         PackedQuaternion, // ulong
+        Sbyte,
         Byte,
         Ushort,
         Short,
