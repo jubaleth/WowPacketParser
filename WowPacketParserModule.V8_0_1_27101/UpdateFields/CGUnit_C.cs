@@ -84,7 +84,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UnitUnkInfo(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFArray(3)]
-        public UnitUnkInfo UNIT_FIELD_UNKNOWN_INFO                       = new UnitUnkInfo(0x5, 0);    
+        public UnitUnkInfo UNIT_FIELD_UNKNOWN_INFO                       = new UnitUnkInfo(0x0, 0);    
         
         public UpdateField UNIT_FIELD_FLAGS                              = new UpdateField(UpdateFieldType.Uint,     0x0,     0);
         public UpdateField UNIT_FIELD_FLAGS_2                            = new UpdateField(UpdateFieldType.Uint,     0x0,     0);

@@ -190,42 +190,33 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
         public static object ReadField(Packet packet, UFs.UpdateField uf, string name, params object[] idx)
         {
-            // @TODO: Enumhandling
-            //try
-            //{
-                switch (uf.GetUpdateFieldType())
-                {
-                    case UpdateFieldType.Sbyte:
-                        return packet.ReadSByte(name, idx);
-                    case UpdateFieldType.Byte:
-                        return packet.ReadByte(name, idx);
-                    case UpdateFieldType.Short:
-                        return packet.ReadInt16(name, idx);
-                    case UpdateFieldType.Ushort:
-                        return packet.ReadUInt16(name, idx);
-                    case UpdateFieldType.Int:
-                        return packet.ReadInt32(name, idx);
-                    case UpdateFieldType.Uint:
-                        return packet.ReadUInt32(name, idx);
-                    case UpdateFieldType.Long:
-                        return packet.ReadInt64(name, idx);
-                    case UpdateFieldType.Ulong:
-                        return packet.ReadUInt64(name, idx);
-                    case UpdateFieldType.Float:
-                        return packet.ReadSingle(name, idx);
-                    case UpdateFieldType.Time:
-                        return packet.ReadTime(name, idx);
-                    case UpdateFieldType.Guid:
-                        return packet.ReadPackedGuid128(name, idx);
-                    default:
-                        throw new NotImplementedException("ReadField: Not implemented type: " + uf.GetUpdateFieldType().ToString());
-                }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.ToString());
-            //    return 0;
-            //}
+            switch (uf.GetUpdateFieldType())
+            {
+                case UpdateFieldType.Sbyte:
+                    return packet.ReadSByte(name, idx);
+                case UpdateFieldType.Byte:
+                    return packet.ReadByte(name, idx);
+                case UpdateFieldType.Short:
+                    return packet.ReadInt16(name, idx);
+                case UpdateFieldType.Ushort:
+                    return packet.ReadUInt16(name, idx);
+                case UpdateFieldType.Int:
+                    return packet.ReadInt32(name, idx);
+                case UpdateFieldType.Uint:
+                    return packet.ReadUInt32(name, idx);
+                case UpdateFieldType.Long:
+                    return packet.ReadInt64(name, idx);
+                case UpdateFieldType.Ulong:
+                    return packet.ReadUInt64(name, idx);
+                case UpdateFieldType.Float:
+                    return packet.ReadSingle(name, idx);
+                case UpdateFieldType.Time:
+                    return packet.ReadTime(name, idx);
+                case UpdateFieldType.Guid:
+                    return packet.ReadPackedGuid128(name, idx);
+                default:
+                    throw new NotImplementedException("ReadField: Not implemented type: " + uf.GetUpdateFieldType().ToString());
+            }
         }
 
         public static void ReadSubstructure(Packet packet, object obj, uint flags, uint loopCount, params object[] index)
