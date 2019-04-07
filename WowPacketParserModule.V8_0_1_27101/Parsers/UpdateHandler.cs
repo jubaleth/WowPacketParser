@@ -330,13 +330,13 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             {
                 ReadSubstructure(packet, new UFs.CGObject_C(), flags, 1, index);
                 ReadSubstructure(packet, new UFs.CGUnit_C(), flags, 1, index);
-                // ReadSubstructure(packet, new UFs.CGPlayer_C(), flags, 1, index);
+                ReadSubstructure(packet, new UFs.CGPlayer_C(), flags, 1, index);
             }
             else if (type == ObjectType.ActivePlayer)
             {
                 ReadSubstructure(packet, new UFs.CGObject_C(), flags, 1, index);
                 ReadSubstructure(packet, new UFs.CGUnit_C(), flags, 1, index);
-                // ReadSubstructure(packet, new UFs.CGPlayer_C(), flags, 1, index);
+                ReadSubstructure(packet, new UFs.CGPlayer_C(), flags, 1, index);
                 // ReadSubstructure(packet, new UFs.CGActivePlayer_C(), flags, 1, index);
             }
             else if (type == ObjectType.GameObject)
@@ -347,7 +347,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             else if (type == ObjectType.DynamicObject)
             {
                 ReadSubstructure(packet, new UFs.CGObject_C(), flags, 1, index);
-                // ReadSubstructure(packet, new UFs.CGDynamicObject_C(), flags, 1, index);
+                ReadSubstructure(packet, new UFs.CGDynamicObject_C(), flags, 1, index);
             }
             else if (type == ObjectType.Corpse)
             {
@@ -367,7 +367,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             else if (type == ObjectType.Conversation)
             {
                 ReadSubstructure(packet, new UFs.CGObject_C(), flags, 1, index);
-                // ReadSubstructure(packet, new UFs.CGConversation_C(), flags, 1, index);
+                ReadSubstructure(packet, new UFs.CGConversation_C(), flags, 1, index);
             }
             else
             {
