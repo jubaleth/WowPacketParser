@@ -327,6 +327,7 @@
     <Compile Include="Parsers\VoiceChatHandler.cs" />
     <Compile Include="Parsers\UpdateHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UpdateFields\CGActivePlayer_C.cs" />
     <Compile Include="UpdateFields\CGAreaTrigger_C.cs" />
     <Compile Include="UpdateFields\CGAzeriteEmpoweredItem_C.cs" />
     <Compile Include="UpdateFields\CGAzeriteItem_C.cs" />

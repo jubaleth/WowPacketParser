@@ -188,8 +188,17 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             }
         }
 
-        public static object ReadField(Packet packet, UFs.UpdateField uf, string name, params object[] idx)
+        public static object ReadField(Packet packet, UFs.UpdateField uf, FieldInfo fieldInfo, params object[] idx)
         {
+            string name = fieldInfo.Name;
+            int bits = fieldInfo.GetCustomAttribute<UFs.UFBitsAttribute>().Length;
+            bool resetBitReader = true;
+
+            if (previousUFType == UpdateFieldType.Bits)
+                resetBitReader = false;
+
+            previousUFType = uf.GetUpdateFieldType();
+
             switch (uf.GetUpdateFieldType())
             {
                 case UpdateFieldType.Sbyte:
@@ -214,6 +223,12 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                     return packet.ReadTime(name, idx);
                 case UpdateFieldType.Guid:
                     return packet.ReadPackedGuid128(name, idx);
+                case UpdateFieldType.Bits:
+                {
+                    if (resetBitReader)
+                        packet.ResetBitReader();
+                    return packet.ReadBits(name, bits, idx);
+                }
                 default:
                     throw new NotImplementedException("ReadField: Not implemented type: " + uf.GetUpdateFieldType().ToString());
             }
@@ -245,6 +260,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
         }
 
         public static Dictionary<uint /*bit*/, uint /*loopcount*/> dynamicLoopCounts = new Dictionary<uint, uint>();
+        public static UpdateFieldType previousUFType;
 
         public static void ParseField(Packet packet, uint flags, FieldInfo fieldInfo, object obj, params object[] indexes)
         {
@@ -270,7 +286,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 UFs.UFDynamicCounterAttribute counter = fieldInfo.GetCustomAttribute<UFs.UFDynamicCounterAttribute>();
                 if (loopCount == 1)
                 {
-                    object val = ReadField(packet, uf, fieldInfo.Name, indexes);
+                    object val = ReadField(packet, uf, fieldInfo, indexes);
                     if (counter != null)
                         dynamicLoopCounts.Add(uf.GetUpdateBit(), Convert.ToUInt32(val));
                 }
@@ -278,7 +294,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 {
                     for (int i = 0; i < loopCount; i++)
                     {
-                        ReadField(packet, uf, fieldInfo.Name, indexes, i);
+                        ReadField(packet, uf, fieldInfo, indexes, i);
                     }
                 }
             }
