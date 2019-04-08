@@ -353,7 +353,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 ReadSubstructure(packet, new UFs.CGObject_C(), flags, 1, index);
                 ReadSubstructure(packet, new UFs.CGUnit_C(), flags, 1, index);
                 ReadSubstructure(packet, new UFs.CGPlayer_C(), flags, 1, index);
-                // ReadSubstructure(packet, new UFs.CGActivePlayer_C(), flags, 1, index);
+                ReadSubstructure(packet, new UFs.CGActivePlayer_C(), flags, 1, index);
             }
             else if (type == ObjectType.GameObject)
             {
