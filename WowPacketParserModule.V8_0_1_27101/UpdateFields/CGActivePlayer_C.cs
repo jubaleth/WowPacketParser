@@ -5,7 +5,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
     public class CGActivePlayer_C
     {
         [UFArray(195)]
-        public UpdateField ACTIVE_PLAYER_FIELD_0 = new UpdateField(UpdateFieldType.Guid, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_FIELD_INV_SLOT_HEAD = new UpdateField(UpdateFieldType.Guid, 0x0, 0);
 
         public UpdateField ACTIVE_PLAYER_FIELD_194 = new UpdateField(UpdateFieldType.Guid, 0x0, 0);
         public UpdateField ACTIVE_PLAYER_FIELD_195 = new UpdateField(UpdateFieldType.Guid, 0x0, 0);

@@ -191,8 +191,12 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
         public static object ReadField(Packet packet, UFs.UpdateField uf, FieldInfo fieldInfo, params object[] idx)
         {
             string name = fieldInfo.Name;
-            int bits = fieldInfo.GetCustomAttribute<UFs.UFBitsAttribute>().Length;
+            UFs.UFBitsAttribute bitsAttr = fieldInfo.GetCustomAttribute<UFs.UFBitsAttribute>();
+            int bits = 0;
             bool resetBitReader = true;
+
+            if (bitsAttr != null)
+                bits = bitsAttr.Length;
 
             if (previousUFType == UpdateFieldType.Bits)
                 resetBitReader = false;

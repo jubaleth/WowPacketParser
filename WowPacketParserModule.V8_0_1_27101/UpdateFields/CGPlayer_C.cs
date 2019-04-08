@@ -4,10 +4,10 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
 {
     public class CGPlayer_C
     {
-        public UpdateField PLAYER_FIELD_0 = new UpdateField(UpdateFieldType.Guid, 0x0, 0);
-        public UpdateField PLAYER_FIELD_1 = new UpdateField(UpdateFieldType.Guid, 0x0, 0);
-        public UpdateField PLAYER_FIELD_2 = new UpdateField(UpdateFieldType.Guid, 0x0, 0);
-        public UpdateField PLAYER_FIELD_3 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField PLAYER_FIELD_DUEL_ARBITER = new UpdateField(UpdateFieldType.Guid, 0x0, 0);
+        public UpdateField PLAYER_FIELD_WOW_ACCOUNT = new UpdateField(UpdateFieldType.Guid, 0x0, 0);
+        public UpdateField PLAYER_FIELD_LOOT_TARGET_GUID = new UpdateField(UpdateFieldType.Guid, 0x0, 0);
+        public UpdateField PLAYER_FIELD_FLAGS = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
         public UpdateField PLAYER_FIELD_4 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
         public UpdateField PLAYER_FIELD_5 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
         public UpdateField PLAYER_FIELD_6 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
@@ -31,24 +31,24 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
 
         public class QuestLog : UpdateFieldStructure
         {
-            public UpdateField PLAYER_QUEST_LOG_QUEST_ID = new UpdateField(UpdateFieldType.Int,  0, 0);
-            public UpdateField PLAYER_QUEST_LOG_UNK_1    = new UpdateField(UpdateFieldType.Uint, 0, 0);
-            public UpdateField PLAYER_QUEST_LOG_UNK_2    = new UpdateField(UpdateFieldType.Uint, 0, 0);
-            public UpdateField PLAYER_QUEST_LOG_DATE     = new UpdateField(UpdateFieldType.Time, 0, 0);
+            public UpdateField PLAYER_FIELD_QUEST_LOG_QUEST_ID = new UpdateField(UpdateFieldType.Int,  0, 0);
+            public UpdateField PLAYER_FIELD_QUEST_LOG_UNK_1    = new UpdateField(UpdateFieldType.Uint, 0, 0);
+            public UpdateField PLAYER_FIELD_QUEST_LOG_UNK_2    = new UpdateField(UpdateFieldType.Uint, 0, 0);
+            public UpdateField PLAYER_FIELD_QUEST_LOG_DATE     = new UpdateField(UpdateFieldType.Time, 0, 0);
 
             public class QuestLogInfo : UpdateFieldStructure
             {
-                public UpdateField PLAYER_QUEST_LOG_UNK_3 = new UpdateField(UpdateFieldType.Ushort, 0, 0);
+                public UpdateField PLAYER_FIELD_QUEST_LOG_UNK_3 = new UpdateField(UpdateFieldType.Ushort, 0, 0);
 
                 public QuestLogInfo(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
             }
             [UFArray(24)]
-            public QuestLogInfo PLAYER_QUEST_LOG_INFO = new QuestLogInfo(0x0, 0);
+            public QuestLogInfo PLAYER_FIELD_QUEST_LOG_INFO = new QuestLogInfo(0x0, 0);
 
             public QuestLog(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFArray(100)]
-        public QuestLog PLAYER_QUEST_LOG = new QuestLog(0x2, 0);
+        public QuestLog PLAYER_FIELD_QUEST_LOG = new QuestLog(0x2, 0);
 
         public class PlayerUnknown : UpdateFieldStructure
         {
@@ -63,7 +63,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
 
         public UpdateField PLAYER_FIELD_2880 = new UpdateField(UpdateFieldType.Int, 0x0, 0);
         public UpdateField PLAYER_FIELD_2881 = new UpdateField(UpdateFieldType.Int, 0x0, 0);
-        public UpdateField PLAYER_FIELD_2882 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField PLAYER_FIELD_VIRTUAL_PLAYER_REALM = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
         public UpdateField PLAYER_FIELD_2883 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
         public UpdateField PLAYER_FIELD_2884 = new UpdateField(UpdateFieldType.Int, 0x0, 0);
 
