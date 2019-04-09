@@ -7,7 +7,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
         [UFDynamicCounter]
         public UpdateField CONVERSATION_FIELD_DYNAMIC_COUNT_1 = new UpdateField(UpdateFieldType.Uint, 0x0, 1);
 
-        public UpdateField CONVERSATION_LAST_LINE_END_TIME = new UpdateField(UpdateFieldType.Int, 0x0, 1);
+        public UpdateField CONVERSATION_LAST_LINE_END_TIME = new UpdateField(UpdateFieldType.Int, 0x0, 3);
 
         public class DynamicUnknown1 : UpdateFieldStructure
         {
@@ -20,10 +20,10 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public DynamicUnknown1(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFDynamicField]
-        public DynamicUnknown1 CONVERSATION_FIELD_DYNAMIC_UNKNOWN_1 = new DynamicUnknown1(0x0, 0);
+        public DynamicUnknown1 CONVERSATION_FIELD_DYNAMIC_UNKNOWN_1 = new DynamicUnknown1(0x0, 1);
 
         [UFDynamicCounter]
-        public UpdateField CONVERSATION_FIELD_DYNAMIC_COUNT_2 = new UpdateField(UpdateFieldType.Uint, 0x0, 1);
+        public UpdateField CONVERSATION_FIELD_DYNAMIC_COUNT_2 = new UpdateField(UpdateFieldType.Uint, 0x0, 2);
 
         public class DynamicUnknown2 : UpdateFieldStructure
         {
@@ -36,6 +36,6 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public DynamicUnknown2(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFDynamicField]
-        public DynamicUnknown2 CONVERSATION_FIELD_DYNAMIC_UNKNOWN_2 = new DynamicUnknown2(0x0, 0);
+        public DynamicUnknown2 CONVERSATION_FIELD_DYNAMIC_UNKNOWN_2 = new DynamicUnknown2(0x0, 2);
     }
 }
