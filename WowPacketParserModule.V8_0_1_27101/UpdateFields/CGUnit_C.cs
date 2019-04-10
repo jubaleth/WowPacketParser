@@ -51,8 +51,8 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UnitPowerInfo(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFArray(6)]
-        public UnitPowerInfo UNIT_FIELD_POWER_INFO                       = new UnitPowerInfo(0x0, 117);
-        
+        public UnitPowerInfo UNIT_FIELD_POWER_INFO                       = new UnitPowerInfo(0x0, 117); // Shared with UNIT_FIELD_POWER_REGEN_INFO
+
         public class UnitPowerRegenInfo : UpdateFieldStructure
         {
             public UpdateField UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER             = new UpdateField(UpdateFieldType.Float,    0x0, 0);
@@ -61,7 +61,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UnitPowerRegenInfo(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFArray(6)]
-        public UnitPowerRegenInfo UNIT_FIELD_POWER_REGEN_INFO            = new UnitPowerRegenInfo(0x5, 117);            
+        public UnitPowerRegenInfo UNIT_FIELD_POWER_REGEN_INFO            = new UnitPowerRegenInfo(0x5, 117);  // Shared with UNIT_FIELD_POWER_INFO           
 
         public UpdateField UNIT_FIELD_MAXHEALTH                          = new UpdateField(UpdateFieldType.Long,    0x0,     30);
         public UpdateField UNIT_FIELD_LEVEL                              = new UpdateField(UpdateFieldType.Int,     0x0,     31);
@@ -125,9 +125,9 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
         
         public class UnitStatInfo : UpdateFieldStructure
         {
-            public UpdateField UNIT_FIELD_STAT                           = new UpdateField(UpdateFieldType.Int,      0x0, 1);
-            public UpdateField UNIT_FIELD_POSSTAT                        = new UpdateField(UpdateFieldType.Int,      0x0, 2);
-            public UpdateField UNIT_FIELD_NEGSTAT                        = new UpdateField(UpdateFieldType.Int,      0x0, 3);
+            public UpdateField UNIT_FIELD_STAT                           = new UpdateField(UpdateFieldType.Int,      0x0, 0); // Check bitsmask
+            public UpdateField UNIT_FIELD_POSSTAT                        = new UpdateField(UpdateFieldType.Int,      0x0, 0); // Check bitsmask
+            public UpdateField UNIT_FIELD_NEGSTAT                        = new UpdateField(UpdateFieldType.Int,      0x0, 0); // Check bitsmask
 
             public UnitStatInfo(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
         }
@@ -135,19 +135,19 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
         public UnitStatInfo UNIT_FIELD_STAT_INFO                         = new UnitStatInfo(0x1, 149);
         
         [UFArray(7)]
-        public UpdateField UNIT_FIELD_RESISTANCES                        = new UpdateField(UpdateFieldType.Int,      0x9,     162); // Bitmask needs confirm
-        
+        public UpdateField UNIT_FIELD_RESISTANCES                        = new UpdateField(UpdateFieldType.Int,      0x9,     162); // Shared with UNIT_FIELD_MOD_INFO
+
         public class UnitModInfo : UpdateFieldStructure
         {
-            public UpdateField UNIT_FIELD_BONUS_RESISTANCE_MODS          = new UpdateField(UpdateFieldType.Int,      0x0, 0);
-            public UpdateField UNIT_FIELD_POWER_COST_MODIFIER            = new UpdateField(UpdateFieldType.Int,      0x0, 0);
-            public UpdateField UNIT_FIELD_POWER_COST_MULTIPLIER          = new UpdateField(UpdateFieldType.Float,    0x0, 0);
+            public UpdateField UNIT_FIELD_BONUS_RESISTANCE_MODS          = new UpdateField(UpdateFieldType.Int,      0x0, 0); // Check bitsmask
+            public UpdateField UNIT_FIELD_POWER_COST_MODIFIER            = new UpdateField(UpdateFieldType.Int,      0x0, 0); // Check bitsmask
+            public UpdateField UNIT_FIELD_POWER_COST_MULTIPLIER          = new UpdateField(UpdateFieldType.Float,    0x0, 0); // Check bitsmask
 
             public UnitModInfo(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFArray(7)]
-        public UnitModInfo UNIT_FIELD_MOD_INFO                           = new UnitModInfo(0x1, 0);
-        
+        public UnitModInfo UNIT_FIELD_MOD_INFO                           = new UnitModInfo(0x1, 162); // Shared with UNIT_FIELD_RESISTANCES
+
         public UpdateField UNIT_FIELD_BASE_MANA                          = new UpdateField(UpdateFieldType.Int,      0x0,     75);
         public UpdateField UNIT_FIELD_BASE_HEALTH                        = new UpdateField(UpdateFieldType.Int,      0x1,     76);
         public UpdateField UNIT_FIELD_BYTES_2_SHEATH_STATE               = new UpdateField(UpdateFieldType.Byte,     0x0,     77);
