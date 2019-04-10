@@ -59,7 +59,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public PlayerUnknown(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFArray(19)]
-        public PlayerUnknown PLAYER_FIELD_2823_2879 = new PlayerUnknown(0x0, 0); // if ( _bittest(&v133, 8u) ) ???
+        public PlayerUnknown PLAYER_FIELD_2823_2879 = new PlayerUnknown(0x0, 136);
 
         public UpdateField PLAYER_FIELD_2880 = new UpdateField(UpdateFieldType.Int, 0x0, 22);
         public UpdateField PLAYER_FIELD_2881 = new UpdateField(UpdateFieldType.Int, 0x0, 23);
@@ -68,7 +68,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
         public UpdateField PLAYER_FIELD_2884 = new UpdateField(UpdateFieldType.Int, 0x0, 26);
 
         [UFArray(4)]
-        public UpdateField PLAYER_FIELD_2885 = new UpdateField(UpdateFieldType.Float, 0x0, 0); // if ( _bittest(&v133, 28u) ) ??? 
+        public UpdateField PLAYER_FIELD_AVG_ITEM_LEVEL = new UpdateField(UpdateFieldType.Float, 0x0, 156); 
 
         public UpdateField PLAYER_FIELD_2886 = new UpdateField(UpdateFieldType.Byte, 0x0, 27);
         public UpdateField PLAYER_FIELD_2887 = new UpdateField(UpdateFieldType.Int, 0x0, 28);
