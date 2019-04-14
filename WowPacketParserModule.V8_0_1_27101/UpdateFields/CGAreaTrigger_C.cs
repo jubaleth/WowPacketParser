@@ -13,7 +13,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
                 public UpdateField AREATRIGGER_OVERRIDE_SCALE_CURVE_FLOAT_1 = new UpdateField(UpdateFieldType.Float,      0x0, 0);
                 public UpdateField AREATRIGGER_OVERRIDE_SCALE_CURVE_FLOAT_2 = new UpdateField(UpdateFieldType.Float,      0x0, 0);
 
-                public OverrideScaleCurveFloat(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+                public OverrideScaleCurveFloat(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
             }
             [UFArray(2)]
             public OverrideScaleCurveFloat AREATRIGGER_OVERRIDE_SCALE_CURVE_FLOATS = new OverrideScaleCurveFloat(0x0, 4);
@@ -21,7 +21,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField AREATRIGGER_OVERRIDE_SCALE_CURVE_UINT_2             = new UpdateField(UpdateFieldType.Uint,     0x0,     3);
             public UpdateField AREATRIGGER_OVERRIDE_SCALE_CURVE_BIT                = new UpdateField(UpdateFieldType.Byte,     0x0,     1);
 
-            public OverrideScaleCurve(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+            public OverrideScaleCurve(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         public OverrideScaleCurve AREATRIGGER_OVERRIDE_SCALE_CURVE = new OverrideScaleCurve(0x0, 1);
 
@@ -47,7 +47,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
                 public UpdateField AREATRIGGER_EXTRA_SCALE_CURVE_FLOAT_1 = new UpdateField(UpdateFieldType.Float,      0x0, 0);
                 public UpdateField AREATRIGGER_EXTRA_SCALE_CURVE_FLOAT_2 = new UpdateField(UpdateFieldType.Float,      0x0, 0);
 
-                public ExtraScaleCurveFloat(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+                public ExtraScaleCurveFloat(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
             }
             [UFArray(2)]
             public ExtraScaleCurveFloat AREATRIGGER_EXTRA_SCALE_CURVE_FLOATS = new ExtraScaleCurveFloat(0x0, 4);
@@ -55,7 +55,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField AREATRIGGER_EXTRA_SCALE_CURVE_UINT_2                = new UpdateField(UpdateFieldType.Uint,      0x0,     3);
             public UpdateField AREATRIGGER_EXTRA_SCALE_CURVE_BIT                   = new UpdateField(UpdateFieldType.Byte,      0x0,     1);
 
-            public ExtraScaleCurve(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+            public ExtraScaleCurve(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         public ExtraScaleCurve AREATRIGGER_EXTRA_SCALE_CURVE = new ExtraScaleCurve(0x0, 2);
     }

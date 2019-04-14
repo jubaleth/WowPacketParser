@@ -48,7 +48,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField UNIT_FIELD_POWER                          = new UpdateField(UpdateFieldType.Int,      0x0, 0);
             public UpdateField UNIT_FIELD_MAXPOWER                       = new UpdateField(UpdateFieldType.Int,      0x0, 0);
 
-            public UnitPowerInfo(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+            public UnitPowerInfo(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFArray(6)]
         public UnitPowerInfo UNIT_FIELD_POWER_INFO                       = new UnitPowerInfo(0x0, 117); // Shared with UNIT_FIELD_POWER_REGEN_INFO
@@ -58,7 +58,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER             = new UpdateField(UpdateFieldType.Float,    0x0, 0);
             public UpdateField UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER = new UpdateField(UpdateFieldType.Float,    0x0, 0);
 
-            public UnitPowerRegenInfo(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+            public UnitPowerRegenInfo(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFArray(6)]
         public UnitPowerRegenInfo UNIT_FIELD_POWER_REGEN_INFO            = new UnitPowerRegenInfo(0x5, 117);  // Shared with UNIT_FIELD_POWER_INFO           
@@ -81,7 +81,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField UNIT_FIELD_63                             = new UpdateField(UpdateFieldType.Ushort,      0x0, 2);
             public UpdateField UNIT_FIELD_64                             = new UpdateField(UpdateFieldType.Ushort,      0x0, 3);
 
-            public UnitUnkInfo(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+            public UnitUnkInfo(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFArray(3)]
         public UnitUnkInfo UNIT_FIELD_UNKNOWN_INFO                       = new UnitUnkInfo(0x0, 142);    
@@ -129,7 +129,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField UNIT_FIELD_POSSTAT                        = new UpdateField(UpdateFieldType.Int,      0x0, 0); // Check bitsmask
             public UpdateField UNIT_FIELD_NEGSTAT                        = new UpdateField(UpdateFieldType.Int,      0x0, 0); // Check bitsmask
 
-            public UnitStatInfo(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+            public UnitStatInfo(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFArray(4)]
         public UnitStatInfo UNIT_FIELD_STAT_INFO                         = new UnitStatInfo(0x1, 149);
@@ -143,7 +143,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField UNIT_FIELD_POWER_COST_MODIFIER            = new UpdateField(UpdateFieldType.Int,      0x0, 0); // Check bitsmask
             public UpdateField UNIT_FIELD_POWER_COST_MULTIPLIER          = new UpdateField(UpdateFieldType.Float,    0x0, 0); // Check bitsmask
 
-            public UnitModInfo(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+            public UnitModInfo(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFArray(7)]
         public UnitModInfo UNIT_FIELD_MOD_INFO                           = new UnitModInfo(0x1, 162); // Shared with UNIT_FIELD_RESISTANCES
@@ -201,7 +201,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField UNIT_DYNAMIC_UNKNOWN_2                    = new UpdateField(UpdateFieldType.Int,      0x0, 0);
             public UpdateField UNIT_DYNAMIC_UNKNOWN_3                    = new UpdateField(UpdateFieldType.Int,      0x0, 0);
 
-            public UnitDynamicUnknown2(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+            public UnitDynamicUnknown2(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFDynamicField]
         public UnitDynamicUnknown2 UNIT_DYNAMIC_UNKNOWN                  = new UnitDynamicUnknown2(0x0, 2);
