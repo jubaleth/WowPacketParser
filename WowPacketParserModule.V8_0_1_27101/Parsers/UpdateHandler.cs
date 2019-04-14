@@ -103,7 +103,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             }
             else if (fieldInfo.FieldType == typeof(UFs.UpdateField))
             {
-                ReadField(packet, (UFs.UpdateField)fieldInfo.GetValue(obj), fieldInfo.Name, indexes);
+                ReadField(packet, (UFs.UpdateField)fieldInfo.GetValue(obj), fieldInfo, indexes);
             }
             else
             {
@@ -116,7 +116,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             foreach (FieldInfo field in NormalFields[obj.GetType()])
             {
                 UFs.UpdateField uf = (UFs.UpdateField)field.GetValue(obj);
-                if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32)) == false) // enable bit has to be set for mask block ( & 1)
+                if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32) * 32) == false) // enable bit has to be set for mask block ( & 1)
                     continue;
                 if (updateMask.Get(uf.GetUpdateBit()) == false) // this field is not being updated
                     continue;
@@ -134,7 +134,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             foreach (FieldInfo dynField in DynamicFields[obj.GetType()])
             {
                 UFs.UpdateField uf = (UFs.UpdateField)dynField.GetValue(obj);
-                if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32)) == false) // enable bit has to be set for mask block ( & 1)
+                if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32) * 32) == false) // enable bit has to be set for mask block ( & 1)
                     continue;
                 if (updateMask.Get(uf.GetUpdateBit()) == false) // this field is not being updated
                     continue;
@@ -153,7 +153,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             foreach (FieldInfo dynField in DynamicFields[obj.GetType()])
             {
                 UFs.UpdateField uf = (UFs.UpdateField)dynField.GetValue(obj);
-                if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32)) == false) // enable bit has to be set for mask block ( & 1)
+                if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32) * 32) == false) // enable bit has to be set for mask block ( & 1)
                     continue;
                 if (updateMask.Get(uf.GetUpdateBit()) == false) // this field is not being updated
                     continue;
@@ -180,7 +180,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             foreach (FieldInfo field in NormalFields[obj.GetType()])
             {
                 UFs.UpdateField uf = (UFs.UpdateField)field.GetValue(obj);
-                if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32)) == false) // enable bit has to be set for mask block ( & 1)
+                if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32) * 32) == false) // enable bit has to be set for mask block ( & 1)
                     continue;
                 if (updateMask.Get(uf.GetUpdateBit()) == false) // this field is not being updated
                     continue;
@@ -201,15 +201,15 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 {
                     if (updateMask.Get(uf.GetUpdateBit() + i) == false)
                         continue;
-                    ParseUpdateField(packet, arrField, obj, index);
+                    ParseUpdateField(packet, arrField, obj, index, i);
                 }
             }
         }
 
         public static void ReadSubstructureUpdate(Packet packet, WowGuid guid, BitArray updateMask, object obj, params object[] index)
         {
-            ReadBitUpdates(packet, guid, updateMask, obj, index); // used in active player
-            ReadDynamicUpdates(packet, guid, updateMask, obj, index);
+            // ReadBitUpdates(packet, guid, updateMask, obj, index); // used in (active) player
+            // ReadDynamicUpdates(packet, guid, updateMask, obj, index);
             ReadNormalUpdates(packet, guid, updateMask, obj, index);
             ReadArrayUpdates(packet, guid, updateMask, obj, index);
         }
@@ -242,25 +242,25 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
             packet.ResetBitReader();
             BitArray updateMask = null;
-            if (maskBlockNum >= 32)
-            {
-                var updateMaskUnk = packet.ReadBits("UpdateMaskBlocks", maskBlockNum, index);
+            /*if (maskBlockNum >= 32)
+            {*/
+                var updateMaskUnk = packet.ReadBits("UpdateMaskUnk", maskBlockNum, index);
                 int[] updateMaskInts = new int[maskBlockNum];
                 int v9 = 1;
                 for (int i = 0; i < maskBlockNum; i++)
                 {
                     if ((v9 & (updateMaskUnk + (i >> 5))) == v9)
                         updateMaskInts[i] = (int)packet.ReadBits("UpdateMask", 32, index, i);
-                    v9 = 1 << v9;
+                    v9 = 1 << (i + 1);
                 }
                 updateMask = new BitArray(updateMaskInts);
-            }
+            /*}
             else
             {
                 int[] updateMaskInts = new int[1];
-                updateMaskInts[0] = (int)packet.ReadBits("UpdateMask", 32, index);
+                updateMaskInts[0] = (int)packet.ReadBits("UpdateMask", maskBlockNum, index);
                 updateMask = new BitArray(updateMaskInts);
-            }
+            }*/
             ReadSubstructureUpdate(packet, guid, updateMask, obj, index);
         }
 
@@ -382,7 +382,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                     return packet.ReadBits(name, bits, idx);
                 }
                 default:
-                    throw new NotImplementedException("ReadField: Not implemented type: " + uf.GetUpdateFieldType().ToString());
+                    throw new NotImplementedException("ReadCreateField: Not implemented type: " + uf.GetUpdateFieldType().ToString());
             }
         }
 

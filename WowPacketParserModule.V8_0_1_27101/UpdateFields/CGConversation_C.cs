@@ -17,7 +17,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField CONVERSATION_DYNAMIC_FIELD_4 = new UpdateField(UpdateFieldType.Byte, 0, 0);
             public UpdateField CONVERSATION_DYNAMIC_FIELD_5 = new UpdateField(UpdateFieldType.Byte, 0, 0);
 
-            public DynamicUnknown1(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+            public DynamicUnknown1(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFDynamicField]
         public DynamicUnknown1 CONVERSATION_FIELD_DYNAMIC_UNKNOWN_1 = new DynamicUnknown1(0x0, 1);
@@ -33,7 +33,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField CONVERSATION_DYNAMIC_FIELD_9 = new UpdateField(UpdateFieldType.Int, 0, 0);
             public UpdateField CONVERSATION_DYNAMIC_FIELD_10 = new UpdateField(UpdateFieldType.Byte, 0, 0); // Bit
 
-            public DynamicUnknown2(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+            public DynamicUnknown2(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFDynamicField]
         public DynamicUnknown2 CONVERSATION_FIELD_DYNAMIC_UNKNOWN_2 = new DynamicUnknown2(0x0, 2);

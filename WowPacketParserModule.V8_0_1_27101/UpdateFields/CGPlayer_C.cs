@@ -40,12 +40,12 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             {
                 public UpdateField PLAYER_FIELD_QUEST_LOG_UNK_3 = new UpdateField(UpdateFieldType.Ushort, 0, 0);
 
-                public QuestLogInfo(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+                public QuestLogInfo(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
             }
             [UFArray(24)]
             public QuestLogInfo PLAYER_FIELD_QUEST_LOG_INFO = new QuestLogInfo(0x0, 5);
 
-            public QuestLog(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+            public QuestLog(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFArray(100)]
         public QuestLog PLAYER_FIELD_QUEST_LOG = new QuestLog(0x2, 35);
@@ -56,7 +56,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField PLAYER_FIELD_2824 = new UpdateField(UpdateFieldType.Ushort, 0, 2);
             public UpdateField PLAYER_FIELD_2825 = new UpdateField(UpdateFieldType.Ushort, 0, 3);
 
-            public PlayerUnknown(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+            public PlayerUnknown(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFArray(19)]
         public PlayerUnknown PLAYER_FIELD_2823_2879 = new PlayerUnknown(0x0, 136);
@@ -89,7 +89,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField PLAYER_FIELD_DYNAMIC_6 = new UpdateField(UpdateFieldType.Uint, 0, 6);
             public UpdateField PLAYER_FIELD_DYNAMIC_7 = new UpdateField(UpdateFieldType.Byte, 0, 7);
 
-            public PlayerDynamicUnknown(uint requiredCreationFlag, uint updateBit) : base(requiredCreationFlag, updateBit) { }
+            public PlayerDynamicUnknown(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFDynamicField]
         public PlayerDynamicUnknown PLAYER_FIELD_DYNAMIC_UNKNOWN_1 = new PlayerDynamicUnknown(0x0, 1);
