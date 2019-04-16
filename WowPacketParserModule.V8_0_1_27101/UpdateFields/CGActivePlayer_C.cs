@@ -4,7 +4,9 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
 {
     public class CGActivePlayer_C
     {
-        [UFArray(195)]
+        // @TODO: implement me
+
+        /*[UFArray(195)]
         public UpdateField ACTIVE_PLAYER_FIELD_INV_SLOT_HEAD = new UpdateField(UpdateFieldType.Guid, 0x0, 0);
 
         public UpdateField ACTIVE_PLAYER_FIELD_194 = new UpdateField(UpdateFieldType.Guid, 0x0, 0);
@@ -318,6 +320,6 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public ActivPlayerDynamicUnknown16(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
         }
         [UFDynamicField] // ACTIVE_PLAYER_DYNAMIC_COUNT_13
-        public ActivPlayerDynamicUnknown16 ACTIVE_PLAYER_DYNAMIC_UNKNOWN_16 = new ActivPlayerDynamicUnknown16(0x0, 0);
+        public ActivPlayerDynamicUnknown16 ACTIVE_PLAYER_DYNAMIC_UNKNOWN_16 = new ActivPlayerDynamicUnknown16(0x0, 0);*/
     }
 }

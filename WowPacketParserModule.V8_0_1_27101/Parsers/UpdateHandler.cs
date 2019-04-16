@@ -93,13 +93,12 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             }
         }
 
-        public static void ParseUpdateField(Packet packet, FieldInfo fieldInfo, object obj, params object[] indexes)
+        public static void ParseUpdateField(Packet packet, FieldInfo fieldInfo, BitArray parentUpdateMask, object obj, params object[] indexes)
         {
             if (fieldInfo.FieldType.IsSubclassOf(typeof(UFs.UpdateFieldStructure)))
             {
-                // @TODO: read substructure mask
-                BitArray subStructureMask = null;
-                ReadSubstructureUpdate(packet, null, subStructureMask, obj, indexes);
+                UFs.UpdateFieldStructure structure = (UFs.UpdateFieldStructure)fieldInfo.GetValue(obj);
+                ReadSubstructureUpdateMask(packet, structure.GetFieldNum(), structure, parentUpdateMask, indexes, structure.GetType().Name);
             }
             else if (fieldInfo.FieldType == typeof(UFs.UpdateField))
             {
@@ -111,11 +110,12 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             }
         }
 
-        public static void ReadBitUpdates(Packet packet, WowGuid guid, BitArray updateMask, object obj, params object[] index)
+        public static void ReadBitUpdates(Packet packet, BitArray updateMask, object obj, params object[] index)
         {
+            UFs.UpdateField uf = null;
             foreach (FieldInfo field in NormalFields[obj.GetType()])
             {
-                UFs.UpdateField uf = (UFs.UpdateField)field.GetValue(obj);
+                uf = (UFs.UpdateField)field.GetValue(obj);
                 if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32) * 32) == false) // enable bit has to be set for mask block ( & 1)
                     continue;
                 if (updateMask.Get(uf.GetUpdateBit()) == false) // this field is not being updated
@@ -124,16 +124,17 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             }
         }
 
-        public static void ReadDynamicUpdates(Packet packet, WowGuid guid, BitArray updateMask, object obj, params object[] index)
+        public static void ReadDynamicUpdates(Packet packet, BitArray updateMask, object obj, params object[] index)
         {
             bool readFirstDynamicField = false;
             bool skippedFirstDynamicFieldData = false;
             List<BitArray> dynMasks = new List<BitArray>();
+            UFs.UpdateField uf = null;
 
             // read bits
             foreach (FieldInfo dynField in DynamicFields[obj.GetType()])
-            {
-                UFs.UpdateField uf = (UFs.UpdateField)dynField.GetValue(obj);
+            { 
+                uf = (UFs.UpdateField)dynField.GetValue(obj);
                 if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32) * 32) == false) // enable bit has to be set for mask block ( & 1)
                     continue;
                 if (updateMask.Get(uf.GetUpdateBit()) == false) // this field is not being updated
@@ -143,7 +144,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 if (!readFirstDynamicField) // somehow first dynamic field is always bit + data, rest is bit of all dynamic firsts after that data
                 {
                     // @TODO: dynamic bit handling
-                    ParseUpdateField(packet, dynField, obj, index);
+                    ParseUpdateField(packet, dynField, updateMask, obj, index);
                     readFirstDynamicField = true;
                 }
             }
@@ -152,7 +153,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             int currentDynField = 0;
             foreach (FieldInfo dynField in DynamicFields[obj.GetType()])
             {
-                UFs.UpdateField uf = (UFs.UpdateField)dynField.GetValue(obj);
+                uf = (UFs.UpdateField)dynField.GetValue(obj);
                 if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32) * 32) == false) // enable bit has to be set for mask block ( & 1)
                     continue;
                 if (updateMask.Get(uf.GetUpdateBit()) == false) // this field is not being updated
@@ -175,25 +176,28 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             }
         }
 
-        public static void ReadNormalUpdates(Packet packet, WowGuid guid, BitArray updateMask, object obj, params object[] index)
+        public static void ReadNormalUpdates(Packet packet, BitArray updateMask, object obj, params object[] index)
         {
+            UFs.UpdateField uf = null;
             foreach (FieldInfo field in NormalFields[obj.GetType()])
-            {
-                UFs.UpdateField uf = (UFs.UpdateField)field.GetValue(obj);
+            { 
+                uf = (UFs.UpdateField)field.GetValue(obj);
                 if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32) * 32) == false) // enable bit has to be set for mask block ( & 1)
                     continue;
                 if (updateMask.Get(uf.GetUpdateBit()) == false) // this field is not being updated
                     continue;
-                ParseUpdateField(packet, field, obj, index);
+                ParseUpdateField(packet, field, updateMask, obj, index);
             }
         }
 
-        public static void ReadArrayUpdates(Packet packet, WowGuid guid, BitArray updateMask, object obj, params object[] index)
+        public static void ReadArrayUpdates(Packet packet, BitArray updateMask, object obj, params object[] index)
         {
+            UFs.UFArrayAttribute array = null;
+            UFs.UpdateField uf = null;
             foreach (FieldInfo arrField in ArrayFields[obj.GetType()])
             {
-                UFs.UFArrayAttribute array = arrField.GetCustomAttribute<UFs.UFArrayAttribute>();
-                UFs.UpdateField uf = (UFs.UpdateField)arrField.GetValue(obj);
+                array = arrField.GetCustomAttribute<UFs.UFArrayAttribute>();
+                uf = (UFs.UpdateField)arrField.GetValue(obj);
                 if (updateMask.Get(uf.GetUpdateBit()) == false) // enable array bit has to be set 
                     continue;
 
@@ -201,17 +205,17 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 {
                     if (updateMask.Get(uf.GetUpdateBit() + i) == false)
                         continue;
-                    ParseUpdateField(packet, arrField, obj, index, i);
+                    ParseUpdateField(packet, arrField, updateMask, obj, index, i, "ARRAYYYY");
                 }
             }
         }
 
-        public static void ReadSubstructureUpdate(Packet packet, WowGuid guid, BitArray updateMask, object obj, params object[] index)
+        public static void ReadSubstructureUpdateData(Packet packet, BitArray updateMask, object obj, params object[] index)
         {
-            // ReadBitUpdates(packet, guid, updateMask, obj, index); // used in (active) player
-            // ReadDynamicUpdates(packet, guid, updateMask, obj, index);
-            ReadNormalUpdates(packet, guid, updateMask, obj, index);
-            ReadArrayUpdates(packet, guid, updateMask, obj, index);
+            // ReadBitUpdates(packet, updateMask, obj, index); // used in (active) player
+            // ReadDynamicUpdates(packet, updateMask, obj, index);
+            ReadNormalUpdates(packet, updateMask, obj, index);
+            ReadArrayUpdates(packet, updateMask, obj, index);
         }
 
         private static BitArray ReadDynamicUpdateMask(Packet packet, bool withoutLoop = false, params object[] index)
@@ -236,32 +240,49 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             return new BitArray(mask.ToArray());
         }
 
-        public static void ReadUpdateMask(Packet packet, WowGuid guid, int maskBlockNum, int index, object obj)
+        public static void ReadSubstructureUpdateMask(Packet packet, int fieldNum, object obj, BitArray parentUpdateMask, params object[] index)
         {
             InitializeFields(obj); // @TODO: move me somewhere generic
 
             packet.ResetBitReader();
             BitArray updateMask = null;
-            /*if (maskBlockNum >= 32)
-            {*/
-                var updateMaskUnk = packet.ReadBits("UpdateMaskUnk", maskBlockNum, index);
-                int[] updateMaskInts = new int[maskBlockNum];
+            int[] updateMaskInts = null;
+
+            if (fieldNum == 0)
+            {
+                ReadSubstructureUpdateData(packet, parentUpdateMask, obj, index);
+                return;
+            }
+
+            if (fieldNum == 32)
+            {
+                var preUpdateMask = packet.ReadBit();
+                if (preUpdateMask == true)
+                {
+                    updateMaskInts = new int[1];
+                    updateMaskInts[0] = (int)packet.ReadBits("UpdateMask", 32, index);
+                }
+            }
+            else if (fieldNum > 32)
+            {
+                int blockNum = (int)Math.Floor((float)fieldNum / 32);
+                updateMaskInts = new int[blockNum];
+                uint updateMaskUnk = packet.ReadBits("UpdateMaskUnk", blockNum, index);
                 int v9 = 1;
-                for (int i = 0; i < maskBlockNum; i++)
+                for (int i = 0; i < blockNum; i++)
                 {
                     if ((v9 & (updateMaskUnk + (i >> 5))) == v9)
                         updateMaskInts[i] = (int)packet.ReadBits("UpdateMask", 32, index, i);
                     v9 = 1 << (i + 1);
                 }
-                updateMask = new BitArray(updateMaskInts);
-            /*}
+            }
             else
             {
-                int[] updateMaskInts = new int[1];
-                updateMaskInts[0] = (int)packet.ReadBits("UpdateMask", maskBlockNum, index);
-                updateMask = new BitArray(updateMaskInts);
-            }*/
-            ReadSubstructureUpdate(packet, guid, updateMask, obj, index);
+                updateMaskInts = new int[1];
+                updateMaskInts[0] = (int)packet.ReadBits("UpdateMask", fieldNum, index);
+            }
+            updateMask = new BitArray(updateMaskInts);
+            ReadSubstructureUpdateData(packet, updateMask, obj, index);
         }
 
         public static void ReadValuesUpdateBlock(Packet packet, WowGuid guid, int index)
@@ -270,69 +291,64 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             var flags = packet.ReadUInt32("Flags", index);
 
             dynamicLoopCounts.Clear();
+
+            // @TODO: move me into class to be able to use different shit between patches
             if ((flags & (1 << (int)ObjectType.Object)) > 0)
             {
-                // handled moar easy
-                ReadUpdateMask(packet, guid, 4, index, new UFs.CGObject_C());
+                ReadSubstructureUpdateMask(packet, 4, new UFs.CGObject_C(), null, index);
             }
             else if ((flags & (1 << (int)ObjectType.Item)) > 0)
             {
-                ReadUpdateMask(packet, guid, 2, index, new UFs.CGItem_C());
+                ReadSubstructureUpdateMask(packet, 2 * 32, new UFs.CGItem_C(), null, index);
             }
             else if ((flags & (1 << (int)ObjectType.Container)) > 0)
             {
-                ReadUpdateMask(packet, guid, 2, index, new UFs.CGContainer_C());
+                ReadSubstructureUpdateMask(packet, 2 * 32, new UFs.CGContainer_C(), null, index);
             }
             else if ((flags & (1 << (int)ObjectType.AzeriteEmpoweredItem)) > 0)
             {
-                ReadUpdateMask(packet, guid, 1, index, new UFs.CGAzeriteEmpoweredItem_C());
+                ReadSubstructureUpdateMask(packet, 1 * 32, new UFs.CGAzeriteEmpoweredItem_C(), null, index);
             }
             else if ((flags & (1 << (int)ObjectType.AzeriteItem)) > 0)
             {
-                // handled moar easy
-                ReadUpdateMask(packet, guid, 6, index, new UFs.CGAzeriteItem_C());
+                ReadSubstructureUpdateMask(packet, 6, new UFs.CGAzeriteItem_C(), null, index);
             }
             else if ((flags & (1 << (int)ObjectType.Unit)) > 0)
             {
-                ReadUpdateMask(packet, guid, 6, index, new UFs.CGUnit_C());
+                ReadSubstructureUpdateMask(packet, 6 * 32, new UFs.CGUnit_C(), null, index);
             }
             else if ((flags & (1 << (int)ObjectType.Player)) > 0)
             {
-                // ReadUpdates(packet, guid, 6, index, new UFs.CGPlayer_C());
+                ReadSubstructureUpdateMask(packet, 6 * 32, new UFs.CGPlayer_C(), null, index);
             }
             else if ((flags & (1 << (int)ObjectType.ActivePlayer)) > 0)
             {
                 // handled differently
-                // ReadUpdates(packet, guid, 46, index, new UFs.CGActivePlayer_C());
+                // ReadSubstructureUpdateMask(packet, 46, new UFs.CGActivePlayer_C(), null, index);
             }
             else if ((flags & (1 << (int)ObjectType.GameObject)) > 0)
             {
-                // handled moar easy
-                ReadUpdateMask(packet, guid, 20, index, new UFs.CGGameObject_C());
+                ReadSubstructureUpdateMask(packet, 20, new UFs.CGGameObject_C(), null, index);
             }
             else if ((flags & (1 << (int)ObjectType.DynamicObject)) > 0)
             {
-                // handled moar easy
-                // ReadUpdates(packet, guid, 7, index, new UFs.CGDynamicObject_C());
+                ReadSubstructureUpdateMask(packet, 7, new UFs.CGDynamicObject_C(), null, index);
             }
             else if ((flags & (1 << (int)ObjectType.Corpse)) > 0)
             {
-                ReadUpdateMask(packet, guid, 2, index, new UFs.CGCorpse_C());
+                ReadSubstructureUpdateMask(packet, 2 * 32, new UFs.CGCorpse_C(), null, index);
             }
             else if ((flags & (1 << (int)ObjectType.AreaTrigger)) > 0)
             {
-                // handled moar easy
-                ReadUpdateMask(packet, guid, 14, index, new UFs.CGAreaTrigger_C());
+                ReadSubstructureUpdateMask(packet, 14, new UFs.CGAreaTrigger_C(), null, index);
             }
             else if ((flags & (1 << (int)ObjectType.SceneObject)) > 0)
             {
-                // handled moar easy
-                ReadUpdateMask(packet, guid, 5, index, new UFs.CGSceneObject_C());
+                ReadSubstructureUpdateMask(packet, 5, new UFs.CGSceneObject_C(), null, index);
             }
             else if ((flags & (1 << (int)ObjectType.Conversation)) > 0)
             {
-                // handled moar easy
-                // ReadUpdates(packet, guid, 4, index, new UFs.CGConversation_C());
+                ReadSubstructureUpdateMask(packet, 4, new UFs.CGConversation_C(), null, index);
             }
         }
 

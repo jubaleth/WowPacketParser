@@ -24,10 +24,10 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField ENCHANTMENT3 = new UpdateField(UpdateFieldType.Short,    0, 3);
             public UpdateField ENCHANTMENT4 = new UpdateField(UpdateFieldType.Ushort,   0, 4);
 
-            public Enchantments(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public Enchantments(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFArray(13)]
-        public Enchantments ITEM_FIELD_ENCHANTMENT          = new Enchantments(0x0, 21);
+        public Enchantments ITEM_FIELD_ENCHANTMENT          = new Enchantments(0x0, 21, 5);
 
         public UpdateField ITEM_FIELD_DURABILITY            = new UpdateField(UpdateFieldType.Uint,     0x1,    12);
         public UpdateField ITEM_FIELD_MAXDURABILITY         = new UpdateField(UpdateFieldType.Uint,     0x1,    13);
@@ -55,10 +55,10 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField ITEM_DYNAMIC_FIELD_22_2 = new UpdateField(UpdateFieldType.Byte,     0, 2);
             public UpdateField ITEM_DYNAMIC_FIELD_22_3 = new UpdateField(UpdateFieldType.Byte,     0, 3);
 
-            public UnkDynamicField1(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public UnkDynamicField1(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFDynamicField]
-        public UnkDynamicField1 ITEM_DYNAMIC_FIELD_22       = new UnkDynamicField1(0x0, 3);
+        public UnkDynamicField1 ITEM_DYNAMIC_FIELD_22       = new UnkDynamicField1(0x0, 3, 0);
         
         public class UnkDynamicField2 : UpdateFieldStructure
         {
@@ -67,9 +67,9 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField ITEM_DYNAMIC_FIELD_23_2      = new UpdateField(UpdateFieldType.Ushort,   0, 3);
             public UpdateField ITEM_DYNAMIC_FIELD_23_3      = new UpdateField(UpdateFieldType.Byte,     0, 2);
 
-            public UnkDynamicField2(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public UnkDynamicField2(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFDynamicField]
-        public UnkDynamicField2 ITEM_DYNAMIC_FIELD_23       = new UnkDynamicField2(0x0, 4);
+        public UnkDynamicField2 ITEM_DYNAMIC_FIELD_23       = new UnkDynamicField2(0x0, 4, 32);
     }
 }

@@ -40,7 +40,14 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
 
     public class UpdateFieldStructure : UpdateField
     {
-        public UpdateFieldStructure(int reqCreationFlag, int updateBit) : base(reqCreationFlag, updateBit) { }
+        private int FieldNum;
+
+        public UpdateFieldStructure(int reqCreationFlag, int updateBit, int fieldNum) : base(reqCreationFlag, updateBit)
+        {
+            this.FieldNum = fieldNum;
+        }
+
+        public int GetFieldNum() { return this.FieldNum; }
     }
 
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true, Inherited = false)]

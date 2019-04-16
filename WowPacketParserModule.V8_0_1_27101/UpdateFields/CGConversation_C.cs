@@ -17,10 +17,10 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField CONVERSATION_DYNAMIC_FIELD_4 = new UpdateField(UpdateFieldType.Byte, 0, 0);
             public UpdateField CONVERSATION_DYNAMIC_FIELD_5 = new UpdateField(UpdateFieldType.Byte, 0, 0);
 
-            public DynamicUnknown1(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public DynamicUnknown1(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFDynamicField]
-        public DynamicUnknown1 CONVERSATION_FIELD_DYNAMIC_UNKNOWN_1 = new DynamicUnknown1(0x0, 1);
+        public DynamicUnknown1 CONVERSATION_FIELD_DYNAMIC_UNKNOWN_1 = new DynamicUnknown1(0x0, 1, 0);
 
         [UFDynamicCounter]
         public UpdateField CONVERSATION_FIELD_DYNAMIC_COUNT_2 = new UpdateField(UpdateFieldType.Uint, 0x0, 2);
@@ -31,11 +31,11 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField CONVERSATION_DYNAMIC_FIELD_7 = new UpdateField(UpdateFieldType.Uint, 0, 0);
             public UpdateField CONVERSATION_DYNAMIC_FIELD_8 = new UpdateField(UpdateFieldType.Guid, 0, 0);
             public UpdateField CONVERSATION_DYNAMIC_FIELD_9 = new UpdateField(UpdateFieldType.Int, 0, 0);
-            public UpdateField CONVERSATION_DYNAMIC_FIELD_10 = new UpdateField(UpdateFieldType.Byte, 0, 0); // Bit
+            public UpdateField CONVERSATION_DYNAMIC_FIELD_10 = new UpdateField(UpdateFieldType.Byte, 0, 0); // @TODO: Bit
 
-            public DynamicUnknown2(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public DynamicUnknown2(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFDynamicField]
-        public DynamicUnknown2 CONVERSATION_FIELD_DYNAMIC_UNKNOWN_2 = new DynamicUnknown2(0x0, 2);
+        public DynamicUnknown2 CONVERSATION_FIELD_DYNAMIC_UNKNOWN_2 = new DynamicUnknown2(0x0, 2, 0);
     }
 }
