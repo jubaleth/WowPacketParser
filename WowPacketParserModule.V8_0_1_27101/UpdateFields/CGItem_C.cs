@@ -46,7 +46,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
         public UpdateField ITEM_FIELD_24                    = new UpdateField(UpdateFieldType.Uint,     0x0,    19);
 
         // dynamic fields
-        [UFDynamicField]
+        [UFDynamicField(true)]
         public UpdateField ITEM_DYNAMIC_FIELD_21            = new UpdateField(UpdateFieldType.Uint,     0x0,     2);
 
         public class UnkDynamicField1 : UpdateFieldStructure
@@ -57,7 +57,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
 
             public UnkDynamicField1(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
-        [UFDynamicField]
+        [UFDynamicField(true)]
         public UnkDynamicField1 ITEM_DYNAMIC_FIELD_22       = new UnkDynamicField1(0x0, 3, 0);
         
         public class UnkDynamicField2 : UpdateFieldStructure
@@ -69,7 +69,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
 
             public UnkDynamicField2(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
-        [UFDynamicField]
+        [UFDynamicField(true)]
         public UnkDynamicField2 ITEM_DYNAMIC_FIELD_23       = new UnkDynamicField2(0x0, 4, 32);
     }
 }

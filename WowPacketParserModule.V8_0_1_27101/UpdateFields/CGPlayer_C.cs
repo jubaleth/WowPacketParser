@@ -85,7 +85,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
 
             public PlayerDynamicUnknown(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
-        [UFDynamicField]
+        [UFDynamicField(true)]
         public PlayerDynamicUnknown PLAYER_FIELD_DYNAMIC_UNKNOWN_1 = new PlayerDynamicUnknown(0x0, 1, 8);
     }
 }

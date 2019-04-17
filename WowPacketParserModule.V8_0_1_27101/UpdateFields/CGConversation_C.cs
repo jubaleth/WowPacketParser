@@ -35,7 +35,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
 
             public DynamicUnknown2(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
-        [UFDynamicField]
+        [UFDynamicField(true)]
         public DynamicUnknown2 CONVERSATION_FIELD_DYNAMIC_UNKNOWN_2 = new DynamicUnknown2(0x0, 2, 0);
     }
 }

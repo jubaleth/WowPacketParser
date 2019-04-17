@@ -79,7 +79,10 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             ArrayFields.Add(obj.GetType(), new List<FieldInfo>());
             foreach (FieldInfo field in obj.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance))
             {
-                if (field.GetCustomAttribute<UFs.UFDynamicCounterAttribute>() != null || field.GetCustomAttribute<UFs.UFDynamicFieldAttribute>() != null)
+                if (field.GetCustomAttribute<UFs.UFDynamicCounterAttribute>() != null)
+                    continue;
+
+                if (field.GetCustomAttribute<UFs.UFDynamicFieldAttribute>() != null)
                     DynamicFields[obj.GetType()].Add(field);
                 else if (field.GetCustomAttribute<UFs.UFArrayAttribute>() != null)
                     ArrayFields[obj.GetType()].Add(field);
@@ -113,7 +116,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
         public static void ReadBitUpdates(Packet packet, BitArray updateMask, object obj, params object[] index)
         {
             UFs.UpdateField uf = null;
-            foreach (FieldInfo field in NormalFields[obj.GetType()])
+            foreach (FieldInfo field in BitFields[obj.GetType()])
             {
                 uf = (UFs.UpdateField)field.GetValue(obj);
                 if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32) * 32) == false) // enable bit has to be set for mask block ( & 1)
@@ -126,52 +129,79 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
 
         public static void ReadDynamicUpdates(Packet packet, BitArray updateMask, object obj, params object[] index)
         {
-            bool readFirstDynamicField = false;
-            bool skippedFirstDynamicFieldData = false;
-            List<BitArray> dynMasks = new List<BitArray>();
+            List<List<int>> dynMasks = new List<List<int>>();
+            List<uint> counts = new List<uint>();
             UFs.UpdateField uf = null;
+            UFs.UFDynamicFieldAttribute dynFieldAttribute = null;
 
-            // read bits
+            int currentDynField = -1;
             foreach (FieldInfo dynField in DynamicFields[obj.GetType()])
-            { 
+            {
+                currentDynField++;
+
                 uf = (UFs.UpdateField)dynField.GetValue(obj);
                 if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32) * 32) == false) // enable bit has to be set for mask block ( & 1)
                     continue;
                 if (updateMask.Get(uf.GetUpdateBit()) == false) // this field is not being updated
                     continue;
 
-                dynMasks.Add(ReadDynamicUpdateMask(packet, true, index));
-                if (!readFirstDynamicField) // somehow first dynamic field is always bit + data, rest is bit of all dynamic firsts after that data
+                packet.ResetBitReader();
+                uint count = packet.ReadBits("DynamicCount", 32, index, currentDynField);
+
+                dynFieldAttribute = dynField.GetCustomAttribute<UFs.UFDynamicFieldAttribute>();
+                if (dynFieldAttribute.SetSpecificEnabled)
                 {
-                    // @TODO: dynamic bit handling
-                    ParseUpdateField(packet, dynField, updateMask, obj, index);
-                    readFirstDynamicField = true;
+                    dynMasks.Add(ReadDynamicUpdateMask(packet, count, index, currentDynField));
+                    counts.Add(count);
+                }
+                else
+                {
+                    if (currentDynField == 0) // first dynamic field is always read completely if its not special
+                    {
+                        for (int i = 0; i < count; i++)
+                            ParseUpdateField(packet, dynField, null, obj, index, currentDynField);
+                    }
+                    else
+                    {
+                        dynMasks.Add(null);
+                        counts.Add(count);
+                    }
                 }
             }
 
             // read data
-            int currentDynField = 0;
+            currentDynField = 0;
+            bool skippedFirstField = false;
             foreach (FieldInfo dynField in DynamicFields[obj.GetType()])
             {
+                dynFieldAttribute = dynField.GetCustomAttribute<UFs.UFDynamicFieldAttribute>();
+                if (!skippedFirstField)
+                {
+                    skippedFirstField = true;
+
+                    // if field is not special we've already read data in previous loop
+                    if (!dynFieldAttribute.SetSpecificEnabled)
+                        continue;
+                }
+
                 uf = (UFs.UpdateField)dynField.GetValue(obj);
                 if (updateMask.Get((int)Math.Floor((float)uf.GetUpdateBit() / 32) * 32) == false) // enable bit has to be set for mask block ( & 1)
                     continue;
                 if (updateMask.Get(uf.GetUpdateBit()) == false) // this field is not being updated
                     continue;
 
-                if (!skippedFirstDynamicFieldData)
-                {
-                    skippedFirstDynamicFieldData = true;
+                if (counts[currentDynField] == 0)
                     continue;
+
+                for (int i = 0; i <= counts[currentDynField]; i++)
+                {
+                    if (dynFieldAttribute.SetSpecificEnabled)
+                    {
+                        if ((dynMasks[currentDynField][i >> 5] & (i & 0x1F)) == 0)
+                            continue;
+                    }
+                    ParseUpdateField(packet, dynField, null, obj, index, i);
                 }
-
-                // for (int i = 0; i < ???; i++)
-                // {
-                //     if (dynMasks[currentDynField].Get(???) == false) // 
-                //         continue;
-                //     ParseUpdateField(packet, guid, dynField, dynMask, obj, index, i);
-                // }
-
                 currentDynField++;
             }
         }
@@ -205,7 +235,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 {
                     if (updateMask.Get(uf.GetUpdateBit() + i) == false)
                         continue;
-                    ParseUpdateField(packet, arrField, updateMask, obj, index, i, "ARRAYYYY");
+                    ParseUpdateField(packet, arrField, updateMask, obj, index, i);
                 }
             }
         }
@@ -213,38 +243,38 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
         public static void ReadSubstructureUpdateData(Packet packet, BitArray updateMask, object obj, params object[] index)
         {
             // ReadBitUpdates(packet, updateMask, obj, index); // used in (active) player
-            // ReadDynamicUpdates(packet, updateMask, obj, index);
+            ReadDynamicUpdates(packet, updateMask, obj, index);
             ReadNormalUpdates(packet, updateMask, obj, index);
             ReadArrayUpdates(packet, updateMask, obj, index);
         }
 
-        private static BitArray ReadDynamicUpdateMask(Packet packet, bool withoutLoop = false, params object[] index)
+        private static List<int> ReadDynamicUpdateMask(Packet packet, uint count, params object[] index)
         {
-            packet.ResetBitReader();
-
             List<int> mask = new List<int>();
-            var bitCount = packet.ReadBits("DynamicMaskBlocks", 32, index);
-            mask.Add((int)bitCount);
-            if (bitCount > 32 && !withoutLoop)
+            var bitCount = count;
+            uint i = 0;
+
+            // read in 4 byte blocks
+            while (bitCount > 32) 
             {
-                uint i = 0;
-                while (bitCount > 32)
-                {
-                    mask.Add((int)packet.ReadUInt32("DynamicMask", index, i));
-                    i++;
-                    bitCount -= 32;
-                }
-                if (bitCount > 0) // read remaining bits
-                    mask.Add((int)packet.ReadBits((int)bitCount));
+                mask.Add((int)packet.ReadUInt32("DynamicMask", index, i));
+                i++;
+                bitCount -= 32;
             }
-            return new BitArray(mask.ToArray());
+
+            // read remaining bits
+            if (bitCount > 0)
+            {
+                packet.ResetBitReader();
+                mask.Add((int)packet.ReadBits("DynamicMaskRemaining", (int)bitCount));
+            }
+            return mask;
         }
 
         public static void ReadSubstructureUpdateMask(Packet packet, int fieldNum, object obj, BitArray parentUpdateMask, params object[] index)
         {
             InitializeFields(obj); // @TODO: move me somewhere generic
 
-            packet.ResetBitReader();
             BitArray updateMask = null;
             int[] updateMaskInts = null;
 
@@ -254,34 +284,45 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 return;
             }
 
+            packet.ResetBitReader();
             if (fieldNum == 32)
             {
                 var preUpdateMask = packet.ReadBit();
                 if (preUpdateMask == true)
                 {
                     updateMaskInts = new int[1];
-                    updateMaskInts[0] = (int)packet.ReadBits("UpdateMask", 32, index);
+                    updateMaskInts[0] = (int)packet.ReadBits(32);
                 }
             }
             else if (fieldNum > 32)
             {
                 int blockNum = (int)Math.Floor((float)fieldNum / 32);
                 updateMaskInts = new int[blockNum];
-                uint updateMaskUnk = packet.ReadBits("UpdateMaskUnk", blockNum, index);
+                uint updateMaskUnk = packet.ReadBits(blockNum);
                 int v9 = 1;
                 for (int i = 0; i < blockNum; i++)
                 {
                     if ((v9 & (updateMaskUnk + (i >> 5))) == v9)
-                        updateMaskInts[i] = (int)packet.ReadBits("UpdateMask", 32, index, i);
+                        updateMaskInts[i] = (int)packet.ReadBits(32);
                     v9 = 1 << (i + 1);
                 }
             }
             else
             {
                 updateMaskInts = new int[1];
-                updateMaskInts[0] = (int)packet.ReadBits("UpdateMask", fieldNum, index);
+                updateMaskInts[0] = (int)packet.ReadBits(fieldNum);
             }
             updateMask = new BitArray(updateMaskInts);
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            for (int i = 0; i < updateMask.Count; i++)
+            {
+                if (updateMask.Get(i) == true)
+                {
+                    sb.Append(i);
+                    sb.Append(" ");
+                }
+            }
+            packet.AddValue("UpdateMaskBits", sb.ToString(), index, "Mask");
             ReadSubstructureUpdateData(packet, updateMask, obj, index);
         }
 

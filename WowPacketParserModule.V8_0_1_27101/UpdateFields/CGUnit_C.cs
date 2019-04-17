@@ -32,8 +32,8 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
         public UpdateField UNIT_FIELD_TARGET                             = new UpdateField(UpdateFieldType.Guid,     0x0,     18);
         public UpdateField UNIT_FIELD_BATTLE_PET_COMPANION_GUID          = new UpdateField(UpdateFieldType.Guid,     0x0,     19);
         public UpdateField UNIT_FIELD_NPC_FLAGS                          = new UpdateField(UpdateFieldType.Ulong,    0x0,     20);
-        public UpdateField UNIT_FIELD_20                                 = new UpdateField(UpdateFieldType.Int,      0x0,     21);// WOOT?
-        public UpdateField UNIT_FIELD_21                                 = new UpdateField(UpdateFieldType.Int,      0x0,     21);// WOOT?
+        public UpdateField UNIT_FIELD_20                                 = new UpdateField(UpdateFieldType.Int,      0x0,     21);
+        public UpdateField UNIT_FIELD_21                                 = new UpdateField(UpdateFieldType.Int,      0x0,     21);
         public UpdateField UNIT_FIELD_22                                 = new UpdateField(UpdateFieldType.Uint,     0x0,     22);
         public UpdateField UNIT_FIELD_BYTES_0_RACE                       = new UpdateField(UpdateFieldType.Byte,     0x0,     23);
         public UpdateField UNIT_FIELD_BYTES_0_CLASS                      = new UpdateField(UpdateFieldType.Byte,     0x0,     24);
@@ -45,8 +45,8 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
         
         public class UnitPowerInfo : UpdateFieldStructure
         {
-            public UpdateField UNIT_FIELD_POWER                          = new UpdateField(UpdateFieldType.Int,      0x0, 0);
-            public UpdateField UNIT_FIELD_MAXPOWER                       = new UpdateField(UpdateFieldType.Int,      0x0, 0);
+            public UpdateField UNIT_FIELD_POWER                          = new UpdateField(UpdateFieldType.Int,      0x0, 118); // @TODO fixme
+            public UpdateField UNIT_FIELD_MAXPOWER                       = new UpdateField(UpdateFieldType.Int,      0x0, 124);// @TODO fixme
 
             public UnitPowerInfo(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
@@ -55,8 +55,8 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
 
         public class UnitPowerRegenInfo : UpdateFieldStructure
         {
-            public UpdateField UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER             = new UpdateField(UpdateFieldType.Float,    0x0, 0);
-            public UpdateField UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER = new UpdateField(UpdateFieldType.Float,    0x0, 0);
+            public UpdateField UNIT_FIELD_POWER_REGEN_FLAT_MODIFIER             = new UpdateField(UpdateFieldType.Float,    0x0, 130);// @TODO fixme
+            public UpdateField UNIT_FIELD_POWER_REGEN_INTERRUPTED_FLAT_MODIFIER = new UpdateField(UpdateFieldType.Float,    0x0, 136);// @TODO fixme
 
             public UnitPowerRegenInfo(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
@@ -203,13 +203,13 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
 
             public UnitDynamicUnknown2(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
-        [UFDynamicField]
+        [UFDynamicField(true)]
         public UnitDynamicUnknown2 UNIT_DYNAMIC_UNKNOWN                  = new UnitDynamicUnknown2(0x0, 2, 0);
         
-        [UFDynamicField]
+        [UFDynamicField(true)]
         public UpdateField UNIT_DYNAMIC_UNKNOWN_4                        = new UpdateField(UpdateFieldType.Int,      0x0,     3);
                                                                          
-        [UFDynamicField]                                                 
+        [UFDynamicField(true)]                                                 
         public UpdateField UNIT_DYNAMIC_UNKNOWN_5                        = new UpdateField(UpdateFieldType.Guid,     0x0,     4);        
     }
 }

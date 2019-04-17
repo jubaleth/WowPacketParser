@@ -70,7 +70,17 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true, Inherited = false)]
     public sealed class UFDynamicFieldAttribute : Attribute
     {
-        public UFDynamicFieldAttribute() { }
+        public bool SetSpecificEnabled; // with this option enabled additional bitreads are done
+
+        public UFDynamicFieldAttribute()
+        {
+            this.SetSpecificEnabled = false;
+        }
+
+        public UFDynamicFieldAttribute(bool setSpecificEnabled)
+        {
+            this.SetSpecificEnabled = setSpecificEnabled;
+        }
     }
 
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true, Inherited = false)]

@@ -30,7 +30,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
         [UFDynamicCounter]
         public UpdateField GAMEOBJECT_DYNAMIC_COUNT_2            = new UpdateField(UpdateFieldType.Uint,     0x0,     2);
         public UpdateField GAMEOBJECT_FIELD_CUSTOM_PARAM         = new UpdateField(UpdateFieldType.Uint,     0x0,     19);
-        [UFDynamicField]
+        [UFDynamicField(true)]
         public UpdateField GAMEOBJECT_DYNAMIC_UNKNOWN            = new UpdateField(UpdateFieldType.Uint,     0x0,     2);
     }
 }
