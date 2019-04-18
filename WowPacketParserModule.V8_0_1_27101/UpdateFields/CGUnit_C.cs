@@ -125,9 +125,9 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
         
         public class UnitStatInfo : UpdateFieldStructure
         {
-            public UpdateField UNIT_FIELD_STAT                           = new UpdateField(UpdateFieldType.Int,      0x0, 150); // Check bitsmask
-            public UpdateField UNIT_FIELD_POSSTAT                        = new UpdateField(UpdateFieldType.Int,      0x0, 154); // Check bitsmask
-            public UpdateField UNIT_FIELD_NEGSTAT                        = new UpdateField(UpdateFieldType.Int,      0x0, 158); // Check bitsmask
+            public UpdateField UNIT_FIELD_STAT                           = new UpdateField(UpdateFieldType.Int,      0x0, 150);
+            public UpdateField UNIT_FIELD_POSSTAT                        = new UpdateField(UpdateFieldType.Int,      0x0, 154);
+            public UpdateField UNIT_FIELD_NEGSTAT                        = new UpdateField(UpdateFieldType.Int,      0x0, 158);
 
             public UnitStatInfo(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
@@ -135,13 +135,13 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
         public UnitStatInfo UNIT_FIELD_STAT_INFO                         = new UnitStatInfo(0x1, 149, 0);
         
         [UFArray(7)]
-        public UpdateField UNIT_FIELD_RESISTANCES                        = new UpdateField(UpdateFieldType.Int,      0x9,     162); // Shared with UNIT_FIELD_MOD_INFO
+        public UpdateField UNIT_FIELD_RESISTANCES                        = new UpdateField(UpdateFieldType.Int,      0x9, 162); // Shared with UNIT_FIELD_MOD_INFO
 
         public class UnitModInfo : UpdateFieldStructure
         {
-            public UpdateField UNIT_FIELD_BONUS_RESISTANCE_MODS          = new UpdateField(UpdateFieldType.Int,      0x0, 163); // Check bitsmask
-            public UpdateField UNIT_FIELD_POWER_COST_MODIFIER            = new UpdateField(UpdateFieldType.Int,      0x0, 170); // Check bitsmask
-            public UpdateField UNIT_FIELD_POWER_COST_MULTIPLIER          = new UpdateField(UpdateFieldType.Float,    0x0, 177); // Check bitsmask
+            public UpdateField UNIT_FIELD_BONUS_RESISTANCE_MODS          = new UpdateField(UpdateFieldType.Int,      0x0, 170);
+            public UpdateField UNIT_FIELD_POWER_COST_MODIFIER            = new UpdateField(UpdateFieldType.Int,      0x0, 177);
+            public UpdateField UNIT_FIELD_POWER_COST_MULTIPLIER          = new UpdateField(UpdateFieldType.Float,    0x0, 184);
 
             public UnitModInfo(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
