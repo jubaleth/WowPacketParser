@@ -292,11 +292,40 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 }
                 else
                 {
-                    for (int i = 1; i <= array.Length; i++)
+                    bool isNormalArrayOrOwnBitMask = true;
+                    if (fields[fieldId].FieldType.IsSubclassOf(typeof(UFs.UpdateFieldStructure)))
                     {
-                        if (updateMask.Get(uf.GetUpdateBit() + i) == false)
-                            continue;
-                        ParseUpdateField(packet, fields[fieldId], updateMask, obj, index, i - 1);
+                        UFs.UpdateFieldStructure structure = (UFs.UpdateFieldStructure)fields[fieldId].GetValue(obj);
+
+                        // if the substructure is using the <main structure> mask for its fields
+                        if (structure.GetFieldNum() == 0)
+                        {
+                            isNormalArrayOrOwnBitMask = false;
+                            for (int i = 1; i <= array.Length; i++)
+                            {
+                                foreach (FieldInfo subField in NormalFields[structure.GetType()])
+                                {
+                                    uf = (UFs.UpdateField)subField.GetValue(structure);
+                                    if (updateMask.Get(uf.GetUpdateBit() + i) == false) // this field is not being updated
+                                        continue;
+
+                                    if (subField.FieldType == typeof(UFs.UpdateField))
+                                        ReadField(packet, (UFs.UpdateField)subField.GetValue(structure), subField, index, i);
+                                    else
+                                        packet.AddValue("Arrays: NOT SUPPORTED FieldType: " + subField.FieldType.ToString(), index);
+                                }
+                            }
+                        }
+                    }
+
+                    if (isNormalArrayOrOwnBitMask)
+                    {
+                        for (int i = 1; i <= array.Length; i++)
+                        {
+                            if (updateMask.Get(uf.GetUpdateBit() + i) == false)
+                                continue;
+                            ParseUpdateField(packet, fields[fieldId], updateMask, obj, index, i - 1);
+                        }
                     }
                 }
             }
