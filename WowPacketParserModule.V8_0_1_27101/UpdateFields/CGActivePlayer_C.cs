@@ -6,7 +6,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
     {
         // @TODO: implement me
 
-        /*[UFArray(195)]
+        [UFArray(195)]
         public UpdateField ACTIVE_PLAYER_FIELD_INV_SLOT_HEAD = new UpdateField(UpdateFieldType.Guid, 0x0, 0);
 
         public UpdateField ACTIVE_PLAYER_FIELD_194 = new UpdateField(UpdateFieldType.Guid, 0x0, 0);
@@ -30,10 +30,10 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField ACTIVE_PLAYER_FIELD_206 = new UpdateField(UpdateFieldType.Short, 0x0, 0);
             public UpdateField ACTIVE_PLAYER_FIELD_207 = new UpdateField(UpdateFieldType.Ushort, 0x0, 0);
 
-            public ActivPlayerUnknown(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public ActivPlayerUnknown(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFArray(256)]
-        public ActivPlayerUnknown ACTIVE_PLAYER_FIELD_201_1992 = new ActivPlayerUnknown(0x0, 0);
+        public ActivPlayerUnknown ACTIVE_PLAYER_FIELD_201_1992 = new ActivPlayerUnknown(0x0, 0, 0);
 
         public UpdateField ACTIVE_PLAYER_FIELD_1993 = new UpdateField(UpdateFieldType.Int, 0x0, 0);
         public UpdateField ACTIVE_PLAYER_FIELD_1994 = new UpdateField(UpdateFieldType.Int, 0x0, 0);
@@ -73,10 +73,10 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField ACTIVE_PLAYER_FIELD_2179 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
             public UpdateField ACTIVE_PLAYER_FIELD_2180 = new UpdateField(UpdateFieldType.Byte, 0x0, 0);
 
-            public ActivPlayerUnknown2(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public ActivPlayerUnknown2(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFArray(2)]
-        public ActivPlayerUnknown2 ACTIVE_PLAYER_FIELD_2179_2182 = new ActivPlayerUnknown2(0x0, 0);
+        public ActivPlayerUnknown2 ACTIVE_PLAYER_FIELD_2179_2182 = new ActivPlayerUnknown2(0x0, 0, 0);
 
         public class ActivPlayerUnknown3 : UpdateFieldStructure
         {
@@ -84,10 +84,10 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField ACTIVE_PLAYER_FIELD_2184 = new UpdateField(UpdateFieldType.Int, 0x0, 0);
             public UpdateField ACTIVE_PLAYER_FIELD_2185 = new UpdateField(UpdateFieldType.Float, 0x0, 0);
 
-            public ActivPlayerUnknown3(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public ActivPlayerUnknown3(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFArray(7)]
-        public ActivPlayerUnknown3 ACTIVE_PLAYER_FIELD_2183_2203 = new ActivPlayerUnknown3(0x0, 0);
+        public ActivPlayerUnknown3 ACTIVE_PLAYER_FIELD_2183_2203 = new ActivPlayerUnknown3(0x0, 0, 0);
 
         public UpdateField ACTIVE_PLAYER_FIELD_2204 = new UpdateField(UpdateFieldType.Int, 0x0, 0);
         public UpdateField ACTIVE_PLAYER_FIELD_2205 = new UpdateField(UpdateFieldType.Float, 0x0, 0);
@@ -99,10 +99,10 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField ACTIVE_PLAYER_FIELD_2208 = new UpdateField(UpdateFieldType.Float, 0x0, 0);
             public UpdateField ACTIVE_PLAYER_FIELD_2209 = new UpdateField(UpdateFieldType.Float, 0x0, 0);
 
-            public ActivPlayerUnknown4(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public ActivPlayerUnknown4(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFArray(3)]
-        public ActivPlayerUnknown4 ACTIVE_PLAYER_FIELD_2208_2213 = new ActivPlayerUnknown4(0x0, 0);
+        public ActivPlayerUnknown4 ACTIVE_PLAYER_FIELD_2208_2213 = new ActivPlayerUnknown4(0x0, 0, 0);
 
         public UpdateField ACTIVE_PLAYER_FIELD_2214 = new UpdateField(UpdateFieldType.Float, 0x0, 0);
         public UpdateField ACTIVE_PLAYER_FIELD_2215 = new UpdateField(UpdateFieldType.Float, 0x0, 0);
@@ -122,10 +122,10 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField ACTIVE_PLAYER_FIELD_2226 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
             public UpdateField ACTIVE_PLAYER_FIELD_2227 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
 
-            public ActivPlayerUnknown5(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public ActivPlayerUnknown5(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFArray(12)]
-        public ActivPlayerUnknown5 ACTIVE_PLAYER_FIELD_2226_2249 = new ActivPlayerUnknown5(0x0, 0);
+        public ActivPlayerUnknown5 ACTIVE_PLAYER_FIELD_2226_2249 = new ActivPlayerUnknown5(0x0, 0, 0);
 
         public UpdateField ACTIVE_PLAYER_FIELD_2250 = new UpdateField(UpdateFieldType.Ushort, 0x0, 0);
         public UpdateField ACTIVE_PLAYER_FIELD_2251 = new UpdateField(UpdateFieldType.Ushort, 0x0, 0);
@@ -267,10 +267,10 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField ACTIVE_PLAYER_DYNAMIC_UNKNOWN_14_FLOAT = new UpdateField(UpdateFieldType.Float, 0x0, 0);
             public UpdateField ACTIVE_PLAYER_DYNAMIC_UNKNOWN_14_INT_2 = new UpdateField(UpdateFieldType.Int, 0x0, 0);
 
-            public ActivPlayerDynamicUnknown14(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public ActivPlayerDynamicUnknown14(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFDynamicField] // ACTIVE_PLAYER_DYNAMIC_COUNT_14
-        public ActivPlayerDynamicUnknown14 ACTIVE_PLAYER_DYNAMIC_UNKNOWN_14 = new ActivPlayerDynamicUnknown14(0x0, 0);
+        public ActivPlayerDynamicUnknown14 ACTIVE_PLAYER_DYNAMIC_UNKNOWN_14 = new ActivPlayerDynamicUnknown14(0x0, 0, 0);
 
         public class ActivPlayerDynamicUnknown15 : UpdateFieldStructure
         {
@@ -278,10 +278,10 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField ACTIVE_PLAYER_DYNAMIC_UNKNOWN_14_INT_2 = new UpdateField(UpdateFieldType.Int, 0x0, 0);
             public UpdateField ACTIVE_PLAYER_DYNAMIC_UNKNOWN_14_INT_3 = new UpdateField(UpdateFieldType.Int, 0x0, 0);
 
-            public ActivPlayerDynamicUnknown15(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public ActivPlayerDynamicUnknown15(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFDynamicField] // ACTIVE_PLAYER_DYNAMIC_COUNT_15
-        public ActivPlayerDynamicUnknown15 ACTIVE_PLAYER_DYNAMIC_UNKNOWN_15 = new ActivPlayerDynamicUnknown15(0x0, 0);
+        public ActivPlayerDynamicUnknown15 ACTIVE_PLAYER_DYNAMIC_UNKNOWN_15 = new ActivPlayerDynamicUnknown15(0x0, 0, 0);
 
         public class ActivPlayerUnknown6 : UpdateFieldStructure
         {
@@ -295,10 +295,10 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             public UpdateField ACTIVE_PLAYER_UNKNOWN_6_UINT_8 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
             public UpdateField ACTIVE_PLAYER_UNKNOWN_6_BYTE_1 = new UpdateField(UpdateFieldType.Byte, 0x0, 0);
 
-            public ActivPlayerUnknown6(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public ActivPlayerUnknown6(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFArray(6)]
-        public ActivPlayerUnknown6 ACTIVE_PLAYER_UNKNOWN_6 = new ActivPlayerUnknown6(0x0, 0);
+        public ActivPlayerUnknown6 ACTIVE_PLAYER_UNKNOWN_6 = new ActivPlayerUnknown6(0x0, 0, 0);
 
         [UFBits(1)]
         public UpdateField ACTIVE_PLAYER_FIELD_3199 = new UpdateField(UpdateFieldType.Bits, 0x0, 0);
@@ -317,9 +317,9 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
             [UFBits(5)]
             public UpdateField ACTIVE_PLAYER_DYNAMIC_UNKNOWN_14_BYTE_1 = new UpdateField(UpdateFieldType.Bits, 0x0, 0);
 
-            public ActivPlayerDynamicUnknown16(int requiredCreationFlag, int updateBit) : base(requiredCreationFlag, updateBit) { }
+            public ActivPlayerDynamicUnknown16(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
         [UFDynamicField] // ACTIVE_PLAYER_DYNAMIC_COUNT_13
-        public ActivPlayerDynamicUnknown16 ACTIVE_PLAYER_DYNAMIC_UNKNOWN_16 = new ActivPlayerDynamicUnknown16(0x0, 0);*/
+        public ActivPlayerDynamicUnknown16 ACTIVE_PLAYER_DYNAMIC_UNKNOWN_16 = new ActivPlayerDynamicUnknown16(0x0, 0, 0);
     }
 }
