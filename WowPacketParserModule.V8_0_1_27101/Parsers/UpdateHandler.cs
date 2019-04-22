@@ -471,7 +471,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             if ((flags & (1 << (int)ObjectType.ActivePlayer)) > 0)
             {
                 // handled differently
-                // ReadSubstructureUpdateMask(packet, 46, new UFs.CGActivePlayer_C(), null, index, "ActivePlayer");
+                // ReadSubstructureUpdateMask(packet, 4 * 32, new UFs.CGActivePlayer_C(), null, index, "ActivePlayer");
             }
             if ((flags & (1 << (int)ObjectType.GameObject)) > 0)
             {
