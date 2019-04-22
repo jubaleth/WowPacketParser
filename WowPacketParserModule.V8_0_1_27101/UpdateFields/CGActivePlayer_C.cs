@@ -13,7 +13,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
         public UpdateField ACTIVE_PLAYER_FIELD_195 = new UpdateField(UpdateFieldType.Guid, 0x0, 23);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_1 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_1 = new UpdateField(UpdateFieldType.Uint, 0x0, 5);
 
         public UpdateField ACTIVE_PLAYER_FIELD_197 = new UpdateField(UpdateFieldType.Ulong, 0x0, 24);
         public UpdateField ACTIVE_PLAYER_FIELD_198 = new UpdateField(UpdateFieldType.Int, 0x0, 25);
@@ -32,7 +32,7 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
 
             public ActivePlayerUnknown(int requiredCreationFlag, int updateBit, int fieldNum) : base(requiredCreationFlag, updateBit, fieldNum) { }
         }
-        [UFArray(256)]
+        [UFArray(256, true)]
         public ActivePlayerUnknown ACTIVE_PLAYER_FIELD_201_1992 = new ActivePlayerUnknown(0x0, 28, 0); // read right after ACTIVE_PLAYER_FIELD_200
 
         public UpdateField ACTIVE_PLAYER_FIELD_1993 = new UpdateField(UpdateFieldType.Int, 0x0, 29);
@@ -179,52 +179,52 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
         public UpdateField ACTIVE_PLAYER_FIELD_3198 = new UpdateField(UpdateFieldType.Byte, 0x0, 100);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_2 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_2 = new UpdateField(UpdateFieldType.Uint, 0x0, 6);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_3 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_3 = new UpdateField(UpdateFieldType.Uint, 0x0, 7);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_4 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_4 = new UpdateField(UpdateFieldType.Uint, 0x0, 8);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_5 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_5 = new UpdateField(UpdateFieldType.Uint, 0x0, 9);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_6 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_6 = new UpdateField(UpdateFieldType.Uint, 0x0, 10);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_7 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_7 = new UpdateField(UpdateFieldType.Uint, 0x0, 11);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_8 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_8 = new UpdateField(UpdateFieldType.Uint, 0x0, 12);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_9 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_9 = new UpdateField(UpdateFieldType.Uint, 0x0, 13);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_10 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_10 = new UpdateField(UpdateFieldType.Uint, 0x0, 14);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_11 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_11 = new UpdateField(UpdateFieldType.Uint, 0x0, 15);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_12 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_12 = new UpdateField(UpdateFieldType.Uint, 0x0, 16);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_13 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_13 = new UpdateField(UpdateFieldType.Uint, 0x0, 17);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_14 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_14 = new UpdateField(UpdateFieldType.Uint, 0x0, 18);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_15 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_15 = new UpdateField(UpdateFieldType.Uint, 0x0, 19);
 
         [UFDynamicCounter]
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_16 = new UpdateField(UpdateFieldType.Uint, 0x0, 0);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_COUNT_16 = new UpdateField(UpdateFieldType.Uint, 0x0, 20); // 21?
 
         [UFDynamicField] // ACTIVE_PLAYER_DYNAMIC_COUNT_16
-        public UpdateField ACTIVE_PLAYER_DYNAMIC_UNKNOWN_1 = new UpdateField(UpdateFieldType.Ushort, 0x0, 20);
+        public UpdateField ACTIVE_PLAYER_DYNAMIC_UNKNOWN_1 = new UpdateField(UpdateFieldType.Ushort, 0x0, 20); // 21?
 
         [UFDynamicField] // ACTIVE_PLAYER_DYNAMIC_COUNT_1
         public UpdateField ACTIVE_PLAYER_DYNAMIC_UNKNOWN_2 = new UpdateField(UpdateFieldType.Ulong, 0x0, 5);

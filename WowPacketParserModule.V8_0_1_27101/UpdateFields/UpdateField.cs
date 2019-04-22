@@ -54,10 +54,12 @@ namespace WowPacketParserModule.V8_0_1_27101.UpdateFields
     public sealed class UFArrayAttribute : Attribute
     {
         public uint Length;
+        public bool ReadWithNormalFields;
 
-        public UFArrayAttribute(uint length)
+        public UFArrayAttribute(uint length, bool readWithNormalFields = false)
         {
             this.Length = length;
+            this.ReadWithNormalFields = readWithNormalFields;
         }
     }
 

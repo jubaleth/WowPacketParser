@@ -86,7 +86,12 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                 if (field.GetCustomAttribute<UFs.UFDynamicFieldAttribute>() != null)
                     DynamicFields[obj.GetType()].Add(field);
                 else if (field.GetCustomAttribute<UFs.UFArrayAttribute>() != null)
-                    ArrayFields[obj.GetType()].Add(field);
+                {
+                    if (field.GetCustomAttribute<UFs.UFArrayAttribute>().ReadWithNormalFields)
+                        NormalFields[obj.GetType()].Add(field);
+                    else
+                        ArrayFields[obj.GetType()].Add(field);
+                }
                 // else if (field.GetCustomAttribute(UFs.UFBitAttribute>() != null)
                 //     BitFields[obj.GetType()].Add(field);
                 else
@@ -384,13 +389,39 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             }
 
             packet.ResetBitReader();
-            if (fieldNum == 32)
+
+            if (fieldNum > 32)
+            {
+                int blockNum = (int)Math.Floor((float)fieldNum / 32);
+                List<uint> updateMaskUnk = new List<uint>(); 
+
+                int notReadBits = blockNum;
+                while (notReadBits > 32) // 8.1.0: only used in ActivePlayer
+                {
+                    updateMaskUnk.Add(packet.ReadUInt32("MaskUnk", index));
+                    notReadBits -= 32;
+                } 
+
+                // read remaining bits
+                if (notReadBits > 0)
+                    updateMaskUnk.Add(packet.ReadBits("MaskUnkRemaining", notReadBits, index));
+
+                int currentFlag = 1;
+                updateMaskInts = new int[blockNum];
+                for (int i = 0; i < blockNum; i++)
+                {
+                    if ((currentFlag & (updateMaskUnk[i >> 5])) == currentFlag)
+                        updateMaskInts[i] = (int)packet.ReadBits("xx", 32, index, i);
+                    currentFlag = 1 << (i + 1);
+                }
+            }
+            else if (fieldNum == 32)
             {
                 var preUpdateMask = packet.ReadBit();
                 if (preUpdateMask == true)
                 {
                     updateMaskInts = new int[1];
-                    updateMaskInts[0] = (int)packet.ReadBits("zz", 32);
+                    updateMaskInts[0] = (int)packet.ReadBits("zz", 32, index);
                 }
                 else
                 {
@@ -399,23 +430,10 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
                     return;
                 }
             }
-            else if (fieldNum > 32)
-            {
-                int blockNum = (int)Math.Floor((float)fieldNum / 32);
-                updateMaskInts = new int[blockNum];
-                uint updateMaskUnk = packet.ReadBits("maskunk", blockNum);
-                int v9 = 1;
-                for (int i = 0; i < blockNum; i++)
-                {
-                    if ((v9 & (updateMaskUnk + (i >> 5))) == v9)
-                        updateMaskInts[i] = (int)packet.ReadBits("xx", 32, i);
-                    v9 = 1 << (i + 1);
-                }
-            }
             else
             {
                 updateMaskInts = new int[1];
-                updateMaskInts[0] = (int)packet.ReadBits("yy", fieldNum);
+                updateMaskInts[0] = (int)packet.ReadBits("yy", fieldNum, index);
             }
             updateMask = new BitArray(updateMaskInts);
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
@@ -470,8 +488,7 @@ namespace WowPacketParserModule.V8_0_1_27101.Parsers
             }
             if ((flags & (1 << (int)ObjectType.ActivePlayer)) > 0)
             {
-                // handled differently
-                // ReadSubstructureUpdateMask(packet, 4 * 32, new UFs.CGActivePlayer_C(), null, index, "ActivePlayer");
+                ReadSubstructureUpdateMask(packet, 46 * 32, new UFs.CGActivePlayer_C(), null, index, "ActivePlayer");
             }
             if ((flags & (1 << (int)ObjectType.GameObject)) > 0)
             {
